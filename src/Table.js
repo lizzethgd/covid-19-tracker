@@ -4,10 +4,11 @@ import React from 'react'
 //import numeral from 'numeral'
 
 function Table({ countries }) {
+    console.log(countries )
   return (
     <div className="table">
-      {countries.map(({country, cases}) => (
-        <tr>
+      {countries.map(({country, cases, i}) => (
+        <tr key={country}>
           <td>{country}</td>
           <td><strong>{cases}</strong></td>
         </tr>
