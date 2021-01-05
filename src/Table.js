@@ -1,18 +1,22 @@
  
 import React from 'react'
-//import './Table.css'
+import './Table.css'
 //import numeral from 'numeral'
 
 function Table({ countries }) {
     console.log(countries )
   return (
-    <div className="table">
+    <div className='table'>
+    <table >
       {countries.map(({country, cases, i}) => (
-        <tr key={country}>
+        <tbody key={country}>
+        <tr >
           <td>{country}</td>
           <td><strong>{cases}</strong></td>
         </tr>
+        </tbody>
       ))}
+    </table>
     </div>
   );
 }

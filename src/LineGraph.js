@@ -104,5 +104,3 @@ function LineGraph({ casesType }) {
 }
 
 export default LineGraph;
-
-
