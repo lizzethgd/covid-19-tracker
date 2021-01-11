@@ -42,7 +42,7 @@ const App = () => {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
-          let sortedData = sortData(data);
+          const sortedData = sortData(data);
           setCountries(countries);
           setMapCountries(data);
           setTableData(sortedData);
@@ -84,14 +84,14 @@ const App = () => {
             >
               <MenuItem value="worldwide">Worldwide</MenuItem>
               {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
+                <MenuItem key={country.name} value={country.value}>{country.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
         </div>
         <div className="app__stats">
           <InfoBox
-            onClick={(e) => setCasesType("cases")}
+            onClick={e => {setCasesType("cases")}}
             title="Coronavirus Cases"
             isRed
             active={casesType === "cases"}
@@ -99,16 +99,17 @@ const App = () => {
             total={numeral(countryInfo.cases).format("0.0a")}
           />
           <InfoBox
-            onClick={(e) => setCasesType("recovered")}
+            onClick={e => {setCasesType("recovered")}}
             title="Recovered"
+            isGreen
             active={casesType === "recovered"}
             cases={prettyPrintStat(countryInfo.todayRecovered)}
             total={numeral(countryInfo.recovered).format("0.0a")}
           />
           <InfoBox
-            onClick={(e) => setCasesType("deaths")}
+            onClick={e => {setCasesType("deaths")}}
             title="Deaths"
-            isRed
+            isPurple
             active={casesType === "deaths"}
             cases={prettyPrintStat(countryInfo.todayDeaths)}
             total={numeral(countryInfo.deaths).format("0.0a")}
