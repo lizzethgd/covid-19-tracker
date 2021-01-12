@@ -1,21 +1,25 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import {
-  MenuItem,
-  FormControl,
-  Select,
-  Card,
-  CardContent,
-} from "@material-ui/core";
+import { MenuItem, FormControl, Select, Card, CardContent, Paper, Switch, FormControlLabel} from "@material-ui/core";
 import InfoBox from "./InfoBox";
+import Footer from './Footer'
 import LineGraph from "./LineGraph";
 import Table from "./Table";
 import { sortData, prettyPrintStat } from "./util";
 import numeral from "numeral";
 import Map from "./Map";
 import "leaflet/dist/leaflet.css";
+import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles'
 
 const App = () => {
+  const [darkMode, setDarkMode] = useState(false)
+
+  const theme = createMuiTheme({
+    palette: {
+      type: darkMode ? 'dark' : 'light'
+    }
+  })
+
   const [country, setInputCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [countries, setCountries] = useState([]);
@@ -72,10 +76,19 @@ const App = () => {
   };
 
   return (
+    <ThemeProvider theme={theme}>
+      <Paper style={{height: '100vh'}}>
     <div className="app">
       <div className="app__left">
         <div className="app__header">
-          <h1>COVID-19 Tracker</h1>
+          <h1>COVID-19 Tracker</h1> 
+          <FormControlLabel
+          value="start"
+          control={<Switch checked={darkMode} onChange={e=>setDarkMode(!darkMode)} color="secondary"/>}
+          label="Night Mode"
+          labelPlacement="start"
+        />
+          
           <FormControl className="app__dropdown">
             <Select
               variant="outlined"
@@ -133,6 +146,9 @@ const App = () => {
         </CardContent>
       </Card>
     </div>
+    <Footer />
+    </Paper>
+    </ThemeProvider>
   );
 };
 
