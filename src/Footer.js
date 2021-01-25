@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 const Footer = () =>{
     const classes = useStyles();
     return (
-        <AppBar position="fixed" color="secondary" className={classes.appBar}>
+        <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
       <h3>© 2021 LizzethGD</h3>
         </Toolbar>

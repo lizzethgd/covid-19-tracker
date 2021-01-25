@@ -55,7 +55,7 @@ export const prettyPrintStat = (stat) =>
           ></div>
           <div className="info-name">{country.country}</div>
           <div className="info-confirmed">
-            Cases: {numeral(country.cases).format("0,0")}
+            Infected: {numeral(country.cases).format("0,0")}
           </div>
           <div className="info-recovered">
             Recovered: {numeral(country.recovered).format("0,0")}

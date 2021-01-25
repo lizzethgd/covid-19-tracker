@@ -81,10 +81,10 @@ const App = () => {
     <div className="app">
       <div className="app__left">
         <div className="app__header">
-          <h1>COVID-19 Tracker</h1> 
+          <h2>COVID-19 Tracker</h2> 
           <FormControlLabel
           value="start"
-          control={<Switch checked={darkMode} onChange={e=>setDarkMode(!darkMode)} color="secondary"/>}
+          control={<Switch checked={darkMode} onChange={e=>setDarkMode(!darkMode)} color="primary"/>}
           label="Night Mode"
           labelPlacement="start"
         />
@@ -105,11 +105,11 @@ const App = () => {
         <div className="app__stats">
           <InfoBox
             onClick={e => {setCasesType("cases")}}
-            title="Coronavirus Cases"
+            title="Infected"
             isRed
             active={casesType === "cases"}
-            cases={prettyPrintStat(countryInfo.todayCases)}
-            total={numeral(countryInfo.cases).format("0.0a")}
+            cases={prettyPrintStat(countryInfo.todayInfected)}
+            total={numeral(countryInfo.infected).format("0.0a")}
           />
           <InfoBox
             onClick={e => {setCasesType("recovered")}}
@@ -138,8 +138,9 @@ const App = () => {
       <Card className="app__right">
         <CardContent>
           <div className="app__information">
-            <h3>Live Cases by Country</h3>
+            <h3>Live Infected by Country</h3>
             <Table countries={tableData} />
+            <br/>
             <h3>Worldwide new {casesType}</h3>
             <LineGraph casesType={casesType} />
           </div>

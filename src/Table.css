@@ -2,7 +2,6 @@
     margin-top: 20px;
     overflow: scroll;
     height: 400px;
-    color: #6a5d5d;
 }
 
 .table tr{
@@ -15,5 +14,6 @@
 }
 
 .table tbody:nth-of-type(odd){
-    background-color: #f3f2f8;
+    background-color: #88d8c0;
+    color: #592720
 }

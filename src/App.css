@@ -13,7 +13,7 @@ body {
 }
 
 .app__dropdown {
-  background-color: white;
+  border-color: white;
 }
 
 .app__header {
@@ -23,8 +23,7 @@ body {
   justify-content: space-between;
 }
 
-.app__header > h1 {
-  color: #fc3c3c;
+.app__header > h2 {
   font-size: 2rem;
 }
 
@@ -38,7 +37,6 @@ body {
 }
 
 .app__information > h3 {
-  color: #6a5d5d;
   font-weight: 400;
   font-size: 1.5rem;
   margin-bottom: 1rem;
