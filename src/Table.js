@@ -8,10 +8,10 @@ const Table = ({ countries }) => {
   return (
     <div className='table'>
     <table >
-      {countries.map(({country, cases, i}) => (
+      {countries.map(({country, cases, flag}) => (
         <tbody key={country}>
         <tr >
-          <td>{country}</td>
+          <td><img src={flag}  width='40' height='30'/> {country}</td>
           <td><strong>{cases}</strong></td>
         </tr>
         </tbody>
@@ -22,5 +22,3 @@ const Table = ({ countries }) => {
 }
 
 export default Table;
-
-// <strong>{numeral(country.cases).format("0,0")}</strong>

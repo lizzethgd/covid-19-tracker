@@ -7,13 +7,21 @@
 .table tr{
     display: flex;
     justify-content: space-between;
+    
 }
 
 .table td{
+    display: flex;
     padding: 0.5rem;
+    align-items: center;
+    font-size: 1.1rem
 }
 
 .table tbody:nth-of-type(odd){
-    background-color: #88d8c0;
+    background-color: 	#00e0e0;
     color: #592720
+}
+
+img{
+    padding-right: 0.7rem;
 }

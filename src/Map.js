@@ -1,12 +1,14 @@
 import React from "react";
 import { MapContainer as LeafletMap, TileLayer, useMap } from "react-leaflet";
 import "./Map.css";
-import { showDataOnMap } from "./util";
+import { showDataOnMap, showCountryOnMap } from "./util";
 
 const Map = ({ countries, casesType, center, zoom }) => {
     const ChangeView = ({ center, zoom }) => {
         const map = useMap();
         map.setView(center, zoom);
+        map.options.minZoom = 2
+        map.options.maxZoom = 15
         return null;
       }
  
@@ -18,7 +20,11 @@ const Map = ({ countries, casesType, center, zoom }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        {showDataOnMap(countries, casesType)}
+      {  
+        countries.flag 
+        ? showCountryOnMap(countries, casesType)
+        : showDataOnMap(countries, casesType)
+        }
       </LeafletMap>
       </div>
   );

@@ -36,7 +36,8 @@
 
 .info-confirmed,
 .info-recovered,
-.info-deaths {
+.info-deaths,
+.info-vaccinated {
   font-size: 16px;
   margin-top: 5px;
 }

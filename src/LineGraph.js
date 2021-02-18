@@ -30,7 +30,7 @@ const options = {
           tooltipFormat: "ll",
         },
         ticks: {
-          fontColor: '#5C6BC0',
+          fontColor: '#2196F3',
           fontStyle: 'bold',
        },
     }
@@ -42,7 +42,7 @@ const options = {
         },
         ticks: {
           // Include a dollar sign in the ticks
-          fontColor: '#5C6BC0',
+          fontColor: '#2196F3',
           fontStyle: 'bold',
           callback:  (value, index, values) => {
             return numeral(value).format("0a");
@@ -53,7 +53,9 @@ const options = {
   },
 };
 
+
 const buildChartData = (data, casesType) => {
+
   let chartData = [];
   let lastDataPoint;
   for (let date in data.cases) {
@@ -73,19 +75,31 @@ const buildChartData = (data, casesType) => {
 const LineGraph= ({ casesType }) => {
 
   const [data, setData] = useState({});
+  console.log(casesType)
 
   const fetchData = async () => {
+    if (casesType!=='vaccinated'){
     await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         let chartData = buildChartData(data, casesType);
-        setData(chartData);
-        console.log(chartData);
+        setData(chartData)
+        // buildChart(chartData);
+      });
+  }else {
+    await fetch("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=120")
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        let chartData = buildChartData(data, casesType);
+        setData(chartData)
         // buildChart(chartData);
       });
   }
+}
 
   useEffect(() => {
     fetchData();

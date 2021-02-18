@@ -8,7 +8,7 @@
   }
   
   .infoBox__cases {
-    color: #fc3c3c;
+    color: #ff7518;
     font-weight: 600;
     font-size: 1.75rem;
     margin-bottom: 0.5rem;
@@ -23,18 +23,27 @@
   }
   
   .infoBox--red {
-    border-color: #fc3c3c 
+    border-color: #ff4500 
   }
   
   .infoBox--purple {
-    border-color: #865E5E;
+    border-color: #b452ff;
   }
+
+  .infoBox--blue {
+    border-color: #2196F3;
+  }
+
   .infoBox__cases--green {
     color: #7dd71d !important;
   }
 
   .infoBox__cases--purple {
-    color: #865E5E;
+    color: #b452ff;
+  }
+
+  .infoBox__cases--blue {
+    color:  #2196F3;
   }
   
   .infoBox__total {
