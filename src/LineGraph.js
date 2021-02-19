@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+import './LineGraph'
 
 const options = {
   legend: {
@@ -41,7 +42,6 @@ const options = {
           display: false,
         },
         ticks: {
-          // Include a dollar sign in the ticks
           fontColor: '#2196F3',
           fontStyle: 'bold',
           callback:  (value, index, values) => {
@@ -53,12 +53,31 @@ const options = {
   },
 };
 
+const lineGraphColor = {
+  cases: {
+      borderColor: "#ff4500",
+      backgroundColor: "#ff7518"
+  },
+  recovered: {
+      borderColor: "#7dd71d",
+      backgroundColor: "#7dd71d",
+  },
+  deaths: {
+      borderColor: "#b452ff",
+      backgroundColor: "#b452ff",
+  },
+  vaccinated: {
+      borderColor: "#2196F3",
+      backgroundColor: "#2196F3",
+  }
+}
 
 const buildChartData = (data, casesType) => {
 
   let chartData = [];
   let lastDataPoint;
-  for (let date in data.cases) {
+
+  for (let date in data[casesType]) {
     if (lastDataPoint) {
       let newDataPoint = {
         x: date,
@@ -70,6 +89,7 @@ const buildChartData = (data, casesType) => {
   }
   return chartData;
 };
+
 
 
 const LineGraph= ({ casesType }) => {
@@ -112,8 +132,8 @@ const LineGraph= ({ casesType }) => {
           data={{
             datasets: [
               {
-                backgroundColor: "#E91E63",
-                borderColor: "#CC1034",
+                backgroundColor:  { casesType } ? lineGraphColor[casesType].backgroundColor : "#E91E63",
+                borderColor: { casesType } ? lineGraphColor[casesType].backgroundColor : "#CC1034",
                 data: data,
               },
             ],
