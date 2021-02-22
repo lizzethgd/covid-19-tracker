@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
+import { buildChartData, buildChartVacData } from "./util";
 import './LineGraph'
 
 const options = {
@@ -32,7 +33,8 @@ const options = {
         },
         ticks: {
           fontColor: '#2196F3',
-          fontStyle: 'bold',
+          fontSize: 14
+          
        },
     }
     ],
@@ -43,7 +45,7 @@ const options = {
         },
         ticks: {
           fontColor: '#2196F3',
-          fontStyle: 'bold',
+          fontSize: 14,
           callback:  (value, index, values) => {
             return numeral(value).format("0a");
           },
@@ -72,69 +74,70 @@ const lineGraphColor = {
   }
 }
 
-const buildChartData = (data, casesType) => {
+const LineGraph= ({ casesType, country }) => {
 
-  let chartData = [];
-  let lastDataPoint;
+const [chartData, setChartData] = useState({});
 
-  for (let date in data[casesType]) {
-    if (lastDataPoint) {
-      let newDataPoint = {
-        x: date,
-        y: data[casesType][date] - lastDataPoint,
-      };
-      chartData.push(newDataPoint);
-    }
-    lastDataPoint = data[casesType][date];
-  }
-  return chartData;
-};
-
-
-
-const LineGraph= ({ casesType }) => {
-
-  const [data, setData] = useState({});
-  console.log(casesType)
-
-  const fetchData = async () => {
-    if (casesType!=='vaccinated'){
-    await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let chartData = buildChartData(data, casesType);
-        setData(chartData)
-        // buildChart(chartData);
-      });
-  }else {
-    await fetch("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=120")
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        let chartData = buildChartData(data, casesType);
-        setData(chartData)
-        // buildChart(chartData);
-      });
-  }
-}
 
   useEffect(() => {
+    const fetchData = async () => {
+    
+      if (country==='Worldwide'){
+        if (casesType!=='vaccinated'){
+        await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
+          .then((response) => {return response.json()})
+          .then((data) => {
+            console.log(data)
+            let toChartData = buildChartData(data, casesType);
+            setChartData(toChartData)
+          });
+        }else {
+        await fetch("https://disease.sh/v3/covid-19/vaccine/coverage?lastdays=120")
+          .then((response) => {return response.json()})
+          .then((data) => {
+            let toChartData = buildChartVacData(data);
+            setChartData(toChartData)
+            });
+          }
+      }
+        else{
+          if (casesType!=='vaccinated'){
+            await fetch(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`)
+              .then((response) => {return response.json()})
+              .then((data) => {
+                console.log(data)
+                let toChartData = buildChartData(data.timeline, casesType);
+                setChartData(toChartData)
+              });
+          }else {
+            await fetch(`https://disease.sh/v3/covid-19/vaccine/coverage/countries/${country}?lastdays=120`)
+              .then((response) => {return response.json()})
+              .then((data) => {
+                if (data.message!=="No vaccine data for requested country or country does not exist") {
+                let toChartData = buildChartVacData(data.timeline);
+                setChartData(toChartData)
+                }
+                else{
+                  setChartData({})  
+                }
+                });
+              }
+    
+        }
+    }
     fetchData();
-  }, [casesType]);
+  }, [casesType, country]);
 
   return (
     <div>
-      {data?.length > 0 && (
+      {chartData?.length > 0 && (
         <Line
           data={{
             datasets: [
               {
                 backgroundColor:  { casesType } ? lineGraphColor[casesType].backgroundColor : "#E91E63",
                 borderColor: { casesType } ? lineGraphColor[casesType].backgroundColor : "#CC1034",
-                data: data,
+                data: chartData,
               },
             ],
           }}

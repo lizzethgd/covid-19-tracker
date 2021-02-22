@@ -2,12 +2,72 @@ import React from "react";
 import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
 
-export const sortData = (data) => {
+export const sortData = (data, casesType) => {
     const sortedData = [...data]
     return sortedData.sort(
-        (a, b) => (a.cases > b.cases ? false : true)
+        (a, b) => (a[casesType] > b[casesType] ? false : true)
     )
 }
+
+export const buildChartData = (data, casesType) => {
+
+  let chartData = [];
+  //let lastDataPoint;
+
+  for (let date in data[casesType]) {
+    //if (lastDataPoint) {
+      let newDataPoint = {
+        x: date,
+        y: data[casesType][date] //- lastDataPoint,
+      };
+      chartData.push(newDataPoint);
+    //}
+    //lastDataPoint = data[casesType][date];
+  }
+  return chartData;
+};
+
+
+export const buildChartVacData = (data) => {
+
+  let chartData = [];
+  //let lastDataPoint;
+
+  for (let date in data) {
+    //if (lastDataPoint) {
+      let newDataPoint = {
+        x: date,
+        y: data[date]  //- lastDataPoint,
+      };
+      chartData.push(newDataPoint);
+    //}
+    //lastDataPoint = data[date];
+  }
+  return chartData;
+};
+
+export const objetsArraysJoin = (x, y) => {
+  if (Array.isArray(x)) {
+    for (let country  of x) {
+      for (let j=0; j < y.length; j++ ){
+      if ( country.country=== y[j].country){
+        country.updateVaccine = y[j].date
+        country.vaccinated = y[j].vaccinated
+        country.todayVaccinated = y[j].todayVaccinated
+        y.splice(j,1)
+        }
+      }
+    }
+  } 
+  else {
+    if ( x.country=== y.country){
+      x.updateVaccine = y.date
+      x.vaccinated = y.vaccinated
+      x.todayVaccinated = y.todayVaccinated    
+  }
+  }
+return x
+} 
 
 export const prettyPrintStat = (stat) =>
   stat ? `+${numeral(stat).format("0.0a")}` : "+0";

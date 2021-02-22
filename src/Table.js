@@ -1,18 +1,23 @@
  
 import React from 'react'
 import './Table.css'
+import { sortData } from "./util";
+
 //import numeral from 'numeral'
 
-const Table = ({ countries }) => {
-    console.log(countries )
+const Table = ({ data, casesType }) => {
+   
+const sortedData = sortData(data, casesType);
+console.log(data)
+
   return (
     <div className='table'>
     <table >
-      {countries.map(({country, cases, flag}) => (
-        <tbody key={country}>
+      {sortedData.map((country) => (
+        <tbody key={country.country}>
         <tr >
-          <td><img src={flag}  width='40' height='30'/> {country}</td>
-          <td><strong>{cases}</strong></td>
+          <td><img src={country.flag}  width='40' height='30' alt={country.country} /> {country.country}</td>
+          <td><strong>{country[casesType]}</strong></td>
         </tr>
         </tbody>
       ))}
