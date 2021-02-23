@@ -64,7 +64,7 @@ const App = () => {
         country: country.country, cases: country.cases, flag: country.countryInfo.flag, 
         lat: country.countryInfo.lat, long: country.countryInfo.long, 
         deaths: country.deaths, recovered: country.recovered, updated: country.updated,
-        todayCases: country.todayCases, todayDeaths: country.todayDeaths, todayRecovered:country.todayRecovered
+        todayCases: country.todayCases, todayDeaths: country.todayDeaths, todayRecovered:country.todayRecovered, population: country.population
       }));
       setCountries(countries);
       setMapCountries(countriesInfo);
@@ -96,7 +96,7 @@ const getCountryData = async (country) => {
           country: data.country, cases: data.cases, flag: data.countryInfo.flag, 
           lat: data.countryInfo.lat, long: data.countryInfo.long,
           deaths: data.deaths, recovered: data.recovered, updated: data.updated,
-          todayCases: data.todayCases, todayDeaths: data.todayDeaths, todayRecovered:data.todayRecovered
+          todayCases: data.todayCases, todayDeaths: data.todayDeaths, todayRecovered:data.todayRecovered, population: data.population
         }
         setInputCountry(country)
         setMapCountries(countryData);
@@ -181,6 +181,7 @@ return (
             isRed
             active={casesType === "cases"}
             total={countryInfo.cases}
+            population={countryInfo.population}
             cases={countryInfo.todayCases} 
             updated={countryInfo.updated}
           />
@@ -190,6 +191,7 @@ return (
             isGreen
             active={casesType === "recovered"}
             total={countryInfo.recovered}
+            population={countryInfo.population}
             cases={countryInfo.todayRecovered}
             updated={countryInfo.updated}
           />
@@ -199,6 +201,7 @@ return (
             isPurple
             active={casesType === "deaths"}
             total={countryInfo.deaths}
+            population={countryInfo.population}
             cases={countryInfo.todayDeaths}
             updated={countryInfo.updated}
           />
@@ -208,6 +211,7 @@ return (
             isBlue
             active={casesType === "vaccinated"}
             total={vaccineInfo.vaccinated}
+            population={countryInfo.population}
             cases={ vaccineInfo.todayVaccinated}
             updated={vaccineInfo.date }
           />

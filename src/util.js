@@ -3,47 +3,42 @@ import numeral from "numeral";
 import { Circle, Popup } from "react-leaflet";
 
 export const sortData = (data, casesType) => {
+  if(casesType!=='vaccinated'){
     const sortedData = [...data]
     return sortedData.sort(
-        (a, b) => (a[casesType] > b[casesType] ? false : true)
-    )
+        (a, b) => (a[casesType] > b[casesType] ? false : true))
+    }
+  else{
+    const sortedData = data.filter(country => country[casesType]);
+    return sortedData.sort(
+      (a, b) => (a[casesType] > b[casesType] ? false : true))
+  }
 }
 
 export const buildChartData = (data, casesType) => {
-
   let chartData = [];
-  //let lastDataPoint;
-
   for (let date in data[casesType]) {
-    //if (lastDataPoint) {
       let newDataPoint = {
         x: date,
-        y: data[casesType][date] //- lastDataPoint,
+        y: data[casesType][date] 
       };
       chartData.push(newDataPoint);
-    //}
-    //lastDataPoint = data[casesType][date];
   }
-  return chartData;
+
+return chartData;
 };
 
-
 export const buildChartVacData = (data) => {
-
   let chartData = [];
-  //let lastDataPoint;
-
   for (let date in data) {
-    //if (lastDataPoint) {
       let newDataPoint = {
         x: date,
-        y: data[date]  //- lastDataPoint,
+        y: data[date]  
       };
       chartData.push(newDataPoint);
-    //}
-    //lastDataPoint = data[date];
   }
-  return chartData;
+
+return chartData;
 };
 
 export const objetsArraysJoin = (x, y) => {
@@ -70,7 +65,10 @@ return x
 } 
 
 export const prettyPrintStat = (stat) =>
-  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+stat===0 ? 0 :  
+  stat%1 === 0 ? numeral(stat).format('0,0') :
+  stat%1 !== 0  ? numeral(stat).format('0.00') :
+  "No data";
 
   const casesTypeColors = {
     cases: {
@@ -100,7 +98,7 @@ export const prettyPrintStat = (stat) =>
     
   };
   
-  export const showDataOnMap = (data, casesType = "cases") => 
+export const showDataOnMap = (data, casesType = "cases") => 
   data.map((country) => (
     <Circle
       center={[country.lat, country.long]}
@@ -116,67 +114,68 @@ export const prettyPrintStat = (stat) =>
       }
       key={country.country}
     >
-      <Popup>
-        <div className="info-container">
-          <div
-            className="info-flag"
-            style={{ backgroundImage: `url(${country.flag})` }}
-          ></div>
-          <div className="info-name">{country.country}</div>
-          <div className="info-confirmed">
-            Infected: {numeral(country.cases).format("0,0")}
+        <Popup>
+          <div className="info-container">
+            <div
+              className="info-flag"
+              style={{ backgroundImage: `url(${country.flag})` }}
+            ></div>
+            <div className="info-name">{country.country}</div>
+            <div className="info-confirmed">
+              Infected: {numeral(country.cases).format("0,0")}
+            </div>
+            <div className="info-recovered">
+              Recovered: {numeral(country.recovered).format("0,0")}
+            </div>
+            <div className="info-deaths">
+              Deaths: {numeral(country.deaths).format("0,0")}
+            </div>
+            <div className="info-vaccinated">
+            Vaccinated: {country.vaccinated  ? numeral(country.vaccinated).format("0,0") : 'No data'}
+            </div>
           </div>
-          <div className="info-recovered">
-            Recovered: {numeral(country.recovered).format("0,0")}
-          </div>
-          <div className="info-deaths">
-            Deaths: {numeral(country.deaths).format("0,0")}
-          </div>
-          <div className="info-vaccinated">
-           Vaccinated: {country.vaccinated  ? numeral(country.vaccinated).format("0,0") : 'No data'}
-          </div>
-        </div>
-      </Popup>
+        </Popup>
     </Circle>
   ));
 
-  export const showCountryOnMap = (country, casesType = "cases") => 
-<Circle
-  center={[country.lat, country.long]}
-  pathOptions={{
-    color: casesTypeColors[casesType].hex,
-    fillColor: casesTypeColors[casesType].hex,
-  }}
-  fillOpacity={0.4}
-  radius={ 
-    country[casesType]
-    ? Math.sqrt(country[casesType]/10) * casesTypeColors[casesType].multiplier 
-    : 0
-  }
-  key={country.country}
->
-  <Popup>
-    <div className="info-container">
-      <div
-        className="info-flag"
-        style={{ backgroundImage: `url(${country.flag})` }}
-      ></div>
-      <div className="info-name">{country.country}</div>
-      <div className="info-confirmed">
-        Infected: {numeral(country.cases).format("0,0")}
-      </div>
-      <div className="info-recovered">
-        Recovered: {numeral(country.recovered).format("0,0")}
-      </div>
-      <div className="info-deaths">
-        Deaths: {numeral(country.deaths).format("0,0")}
-      </div>
-      <div className="info-vaccinated">
-        Vaccinated: {country.vaccinated?  numeral(country.vaccinated).format("0,0") : 'No data'}
-        </div>
-    </div>
-  </Popup>
-</Circle>
+
+export const showCountryOnMap = (country, casesType = "cases") => 
+  <Circle
+    center={[country.lat, country.long]}
+    pathOptions={{
+      color: casesTypeColors[casesType].hex,
+      fillColor: casesTypeColors[casesType].hex,
+    }}
+    fillOpacity={0.4}
+    radius={ 
+      country[casesType]
+      ? Math.sqrt(country[casesType]/10) * casesTypeColors[casesType].multiplier 
+      : 0
+    }
+    key={country.country}
+    >
+        <Popup>
+          <div className="info-container">
+            <div
+              className="info-flag"
+              style={{ backgroundImage: `url(${country.flag})` }}
+            ></div>
+            <div className="info-name">{country.country}</div>
+            <div className="info-confirmed">
+              Infected: {numeral(country.cases).format("0,0")}
+            </div>
+            <div className="info-recovered">
+              Recovered: {numeral(country.recovered).format("0,0")}
+            </div>
+            <div className="info-deaths">
+              Deaths: {numeral(country.deaths).format("0,0")}
+            </div>
+            <div className="info-vaccinated">
+              Vaccinated: {country.vaccinated?  numeral(country.vaccinated).format("0,0") : 'No data'}
+              </div>
+          </div>
+        </Popup>
+  </Circle>
      
   
  

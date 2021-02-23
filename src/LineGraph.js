@@ -79,8 +79,9 @@ const LineGraph= ({ casesType, country }) => {
 const [chartData, setChartData] = useState({});
 
 
-  useEffect(() => {
-    const fetchData = async () => {
+useEffect(() => {
+  
+const fetchData = async () => {
     
       if (country==='Worldwide'){
         if (casesType!=='vaccinated'){
@@ -105,7 +106,6 @@ const [chartData, setChartData] = useState({});
             await fetch(`https://disease.sh/v3/covid-19/historical/${country}?lastdays=120`)
               .then((response) => {return response.json()})
               .then((data) => {
-                console.log(data)
                 let toChartData = buildChartData(data.timeline, casesType);
                 setChartData(toChartData)
               });
@@ -125,10 +125,11 @@ const [chartData, setChartData] = useState({});
     
         }
     }
-    fetchData();
+  
+  fetchData();
   }, [casesType, country]);
 
-  return (
+return (
     <div>
       {chartData?.length > 0 && (
         <Line

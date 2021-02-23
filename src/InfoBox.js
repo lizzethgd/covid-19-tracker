@@ -1,10 +1,9 @@
 import React from 'react'
 import { Card, CardContent, Typography } from "@material-ui/core";
 import "./InfoBox.css";
-import { sortData, prettyPrintStat } from "./util";
-import numeral from "numeral";
+import { prettyPrintStat } from "./util";
 
-const InfoBox = ({ title, isRed, isPurple, isGreen, isBlue, cases, total, active, updated,...props }) => {
+const InfoBox = ({ title, isRed, isPurple, isGreen, isBlue, cases, total, active, updated, population,...props }) => {
 
   return (
     <Card
@@ -20,17 +19,20 @@ const InfoBox = ({ title, isRed, isPurple, isGreen, isBlue, cases, total, active
         <Typography color="textPrimary" gutterBottom>
           {title}
         </Typography>
-        <h2 className={
+        <h6 className={
           `infoBox__cases ${!isRed && !isPurple && !isBlue && "infoBox__cases--green"}
           ${isPurple && "infoBox__cases--purple"} ${isBlue && "infoBox__cases--blue"}` 
           }>
-         {total!==undefined ? numeral(total).format("0.0a")+' Total' : 'No data'} 
-        </h2>
-        <Typography className="infoBox__total" color="textPrimary">
-        {cases!==undefined ? prettyPrintStat(cases)+' Today' : 'No data'}  
+          {total!==undefined ? prettyPrintStat(total)+' Total' : 'No data'} 
+        </h6>
+        <Typography className="infoBox__little" color="textSecondary">
+          {population!==undefined && cases!==undefined  ? prettyPrintStat(total*100/population)+'% population' : 'No data'} 
         </Typography>
-        <Typography className="infoBox__total" color="textSecondary">
-        {updated!==undefined ? new Date(updated).toUTCString() : 'No data'} 
+        <Typography className="infoBox__little" color="textPimary">
+          {cases!==undefined ? '+'+prettyPrintStat(cases)+' new Today' : 'No data'}  
+        </Typography>
+        <Typography className="infoBox__little" color="textSecondary">
+          {updated!==undefined ? new Date(updated).toUTCString() : 'No data'} 
         </Typography>
       </CardContent>
     </Card>
