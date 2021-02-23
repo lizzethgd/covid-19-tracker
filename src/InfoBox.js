@@ -28,7 +28,7 @@ const InfoBox = ({ title, isRed, isPurple, isGreen, isBlue, cases, total, active
         <Typography className="infoBox__little" color="textSecondary">
           {population!==undefined && cases!==undefined  ? prettyPrintStat(total*100/population)+'% population' : 'No data'} 
         </Typography>
-        <Typography className="infoBox__little" color="textPimary">
+        <Typography className="infoBox__little" color="textPrimary">
           {cases!==undefined ? '+'+prettyPrintStat(cases)+' new Today' : 'No data'}  
         </Typography>
         <Typography className="infoBox__little" color="textSecondary">

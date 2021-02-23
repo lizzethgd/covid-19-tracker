@@ -153,7 +153,8 @@ return (
     <div className="app">
       <div className="app__left">
         <div className="app__header">
-          <h2>COVID-19 Tracker</h2> 
+          <h2>COVID-19 Tracker</h2>
+          <span>Source: disease.sh</span> 
           <FormControlLabel
           value="start"
           control={<Switch checked={lightMode} checkedIcon={<img src={Sun} alt='sun' width='26' height='26'/>} icon={<img src={Moon} alt='moon' width='26' height='26'/>} onChange={e=>setLightMode(!lightMode)} color="primary"/>}

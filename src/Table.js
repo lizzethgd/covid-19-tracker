@@ -8,7 +8,6 @@ import { sortData } from "./util";
 const Table = ({ data, casesType }) => {
    
 const sortedData = sortData(data, casesType);
-console.log(data)
 
   return (
     <div className='table'>

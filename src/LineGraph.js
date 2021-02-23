@@ -61,15 +61,15 @@ const lineGraphColor = {
       backgroundColor: "#ff7518"
   },
   recovered: {
-      borderColor: "#7dd71d",
+      borderColor: "#00e600",
       backgroundColor: "#7dd71d",
   },
   deaths: {
-      borderColor: "#b452ff",
+      borderColor: "#682860",
       backgroundColor: "#b452ff",
   },
   vaccinated: {
-      borderColor: "#2196F3",
+      borderColor: "#5C6BC0",
       backgroundColor: "#2196F3",
   }
 }
@@ -88,7 +88,6 @@ const fetchData = async () => {
         await fetch("https://disease.sh/v3/covid-19/historical/all?lastdays=120")
           .then((response) => {return response.json()})
           .then((data) => {
-            console.log(data)
             let toChartData = buildChartData(data, casesType);
             setChartData(toChartData)
           });
