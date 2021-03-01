@@ -6,12 +6,12 @@ export const sortData = (data, casesType) => {
   if(casesType!=='vaccinated'){
     const sortedData = [...data]
     return sortedData.sort(
-        (a, b) => (a[casesType] > b[casesType] ? false : true))
+        (a, b) => b[casesType] - a[casesType] )
     }
   else{
     const sortedData = data.filter(country => country[casesType]);
     return sortedData.sort(
-      (a, b) => (a[casesType] > b[casesType] ? false : true))
+      (a, b) => b[casesType] - a[casesType] )
   }
 }
 

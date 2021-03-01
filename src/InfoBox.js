@@ -25,13 +25,13 @@ const InfoBox = ({ title, isRed, isPurple, isGreen, isBlue, cases, total, active
           }>
           {total!==undefined ? prettyPrintStat(total)+' Total' : 'No data'} 
         </h6>
-        <Typography className="infoBox__little" color="textSecondary">
+        <Typography className="infoBox__text" color="textSecondary">
           {population!==undefined && cases!==undefined  ? prettyPrintStat(total*100/population)+'% population' : 'No data'} 
         </Typography>
-        <Typography className="infoBox__little" color="textPrimary">
+        <Typography className="infoBox__text" color="textPrimary">
           {cases!==undefined ? '+'+prettyPrintStat(cases)+' new Today' : 'No data'}  
         </Typography>
-        <Typography className="infoBox__little" color="textSecondary">
+        <Typography className="infoBox__text" color="textSecondary">
           {updated!==undefined ? new Date(updated).toUTCString() : 'No data'} 
         </Typography>
       </CardContent>

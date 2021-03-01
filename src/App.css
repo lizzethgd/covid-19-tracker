@@ -1,27 +1,21 @@
 * {
-  margin: 0;
+  margin: 0
 }
-
-/* body {
-  background-color: #b8c3f5;
-} */
 
 .app {
   display: flex;
   justify-content: space-evenly;
   padding: 20px;
+  margin: 0 0 35px;
 }
 
-.app__dropdown {
-  border-color: white;
- 
-}
 
 .app__header {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   justify-content: space-between;
+  color: 'yellow'
 }
 
 .app__header > h2 {
@@ -31,24 +25,115 @@
 .app__stats {
   display: flex;
   justify-content: space-between;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+
+
 }
 
 .app__left {
-  flex: 0.9;
+  width: 75%; 
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.app__information > h3 {
+.app__right{
+  width: 24%; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app__right > h3 {
   font-weight: 400;
   font-size: 1.5rem;
+  height: 100;
   margin-bottom: 1rem;
 }
 
-.app__information > h3:last-of-type {
+.app__right > h3:last-of-type {
   margin-top: 1rem;
 }
 
-@media (max-width: 990px) {
-  .app {
-    flex-direction: column;
-  }
+.chart, .information{
+width: 100%;
 }
+  
+@media only screen and (max-width: 600px) {
+
+  .app, .app__header{
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .app__left{
+    width: 100%;
+  }
+  
+  .app__right{
+    width: 100%;
+  } 
+
+  .information{
+    margin-top: 10px;
+    }
+
+  .app__stats{
+    margin-bottom: 0px;
+  }  
+
+  .chart{
+    margin: 15px 0 20px;
+ }
+  
+ .app__left{
+  width: 100%;
+}
+
+.app__right{
+  width: 100%;
+} 
+  
+} 
+
+@media only screen and (min-width: 601px) and (max-width: 1200px){
+
+  .app{
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .app__left{
+    width: 100%;
+  }
+
+  .app__right{
+    flex-direction: row;
+    width: 100%;
+  } 
+
+  .chart, .information{
+    width: 48%;
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1400px) {
+
+  .app{
+    justify-content: space-between;
+    margin-bottom: 55px;
+  }
+
+  .app__left{
+    width: 70%;
+  }
+
+  .app__right{
+    width: 29%;
+  }
+  
+}
+
+

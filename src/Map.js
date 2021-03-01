@@ -4,6 +4,7 @@ import "./Map.css";
 import { showDataOnMap, showCountryOnMap } from "./util";
 
 const Map = ({ countries, casesType, center, zoom }) => {
+
     const ChangeView = ({ center, zoom }) => {
         const map = useMap();
         map.setView(center, zoom);
@@ -11,7 +12,7 @@ const Map = ({ countries, casesType, center, zoom }) => {
         map.options.maxZoom = 15
         return null;
       }
- 
+
   return (
       <div className="map">
       <LeafletMap center={center} zoom={zoom} casesType={casesType} >

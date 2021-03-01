@@ -129,7 +129,9 @@ const fetchData = async () => {
   }, [casesType, country]);
 
 return (
-    <div>
+    <>
+       <h3>{country} new {casesType}</h3>
+       <br/>
       {chartData?.length > 0 && (
         <Line
           data={{
@@ -144,7 +146,7 @@ return (
           options={options}
         />
       )}
-    </div>
+    </>
   );
 }
 

@@ -3,14 +3,14 @@ import React from 'react'
 import './Table.css'
 import { sortData } from "./util";
 
-//import numeral from 'numeral'
-
 const Table = ({ data, casesType }) => {
    
 const sortedData = sortData(data, casesType);
-
   return (
-    <div className='table'>
+   <>
+    <h3>Live {casesType} by Country</h3>
+     <br/> 
+    <div className='table'> 
     <table >
       {sortedData.map((country) => (
         <tbody key={country.country}>
@@ -22,6 +22,7 @@ const sortedData = sortData(data, casesType);
       ))}
     </table>
     </div>
+    </>
   );
 }
 

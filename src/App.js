@@ -14,11 +14,11 @@ import Moon from './moon.png'
 
 
 const App = () => {
-  const [lightMode, setLightMode] = useState(false)
+  const [darkMode, setDarkMode] = useState(true)
 
   const theme = createMuiTheme({
     palette: {
-      type: lightMode ? 'light' : 'dark'
+      type: darkMode ? 'dark' : 'light'
     }
   })
 
@@ -148,8 +148,8 @@ const getCountryData = async (country) => {
  
 return (
   
-<ThemeProvider theme={theme}>
-  <Paper style={{height: '100vh'}}>
+<ThemeProvider theme={theme} >
+  <Paper style={{height: '100%'}}>
     <div className="app">
       <div className="app__left">
         <div className="app__header">
@@ -157,8 +157,8 @@ return (
           <span>Source: disease.sh</span> 
           <FormControlLabel
           value="start"
-          control={<Switch checked={lightMode} checkedIcon={<img src={Sun} alt='sun' width='26' height='26'/>} icon={<img src={Moon} alt='moon' width='26' height='26'/>} onChange={e=>setLightMode(!lightMode)} color="primary"/>}
-          label= 'Dark / Light '
+          control={<Switch checked={darkMode} checkedIcon={<img src={Moon} alt='Moon' width='26' height='26'/>} icon={<img src={Sun} alt='Sun' width='26' height='26'/>} onChange={e=>setDarkMode(!darkMode)} color="secondary"/>}
+          label= 'Light/Dark Mode'
           labelPlacement="start"
           />     
           <FormControl className="app__dropdown">
@@ -224,19 +224,24 @@ return (
           zoom={mapZoom}
         />
       </div>
-      <Card className="app__right">
-        <CardContent>
-          <div className="app__information">
-            <h3>Live {casesType} by Country</h3>
-            <Table casesType={casesType} data={objetsArraysJoin(tableData, tableVacData )} />
-            <br/>
-            <h3>{inputCountry} new {casesType}</h3>
-            <LineGraph casesType={casesType} country={inputCountry} />
-          </div>
-        </CardContent>
-      </Card>
+      <div className="app__right">
+        <div className='information'> 
+          <Card >
+            <CardContent>
+              <Table casesType={casesType} data={objetsArraysJoin(tableData, tableVacData )} />
+            </CardContent>
+          </Card>
+        </div>
+        <div className='chart'>
+          <Card >
+           <CardContent>
+            <LineGraph casesType={casesType} country={inputCountry} />         
+           </CardContent>
+          </Card>
+        </div>
+      </div> 
     </div>
-    <Footer />
+    <Footer />   
   </Paper>
 </ThemeProvider>  
 );
